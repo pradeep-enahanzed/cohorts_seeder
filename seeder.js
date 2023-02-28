@@ -71,7 +71,7 @@ const createCohortCollection = async () => {
         },
       },
       {
-        $out: "cohorts_new_collection", // Write the transformed data to a new collection
+        $out: "newCohortsCollection", // Write the transformed data to a new collection
       },
     ];
 
@@ -90,6 +90,7 @@ const createCohortCollection = async () => {
       },
       {
         $project: {
+          _id: 1,
           title: 1,
           startDate: 1,
           endDate: 1,
@@ -101,21 +102,17 @@ const createCohortCollection = async () => {
           created_at: 1,
           updated_at: 1,
           members: 1,
-          "courseIds.creator": 1,
+          creator: "$courseIds.creator",
           count: 1,
           joiningLink: 1,
           certification: 1,
-        },
-      },
-      {
-        $set: {
+          courseId: 1,
           type: "facilitated",
-          creator: "$courseIds.creator",
         },
       },
       {
         $merge: {
-          into: "cohorts_new_collection",
+          into: "newCohortsCollection",
         },
       },
     ];
