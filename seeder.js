@@ -71,7 +71,7 @@ const createCohortCollection = async () => {
         },
       },
       {
-        $out: "newCohortsCollection", // Write the transformed data to a new collection
+        $out: "cohorts_v2", // Write the transformed data to a new collection
       },
     ];
 
@@ -112,7 +112,7 @@ const createCohortCollection = async () => {
       },
       {
         $merge: {
-          into: "newCohortsCollection",
+          into: "cohorts_v2",
         },
       },
     ];
