@@ -68,6 +68,7 @@ const createCohortCollection = async () => {
           },
           certification: false, //default value
           type: "default",
+          migrated: 1
         },
       },
       {
@@ -109,6 +110,11 @@ const createCohortCollection = async () => {
           courseId: 1,
           type: "facilitated",
         },
+      },
+      {
+        $set: {
+          migrated: 1
+        }
       },
       {
         $merge: {
