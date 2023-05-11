@@ -1,3 +1,6 @@
+const { Members } = require('./cohort');
+const terms = require('./terms');
+
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId;
@@ -31,12 +34,13 @@ var CourseSchema = new mongoose.Schema({
     privacy: { type: String, enum: ['public', 'private', 'unlisted'], index: true, default: 'private' },
     join_code: { type: String, index: true },
     certification: { type: Boolean, default: false },
-    tag: {
-        core: String,
-        sel: String,
-        sdg: String
+    tags: {
+        type: Object,
+        default: {}
     },
-    creator: { type: ObjectId, ref: 'users' },
+    members:[Members.schema],
+    terms: {type: ObjectId, ref: 'terms'},
+    creator: { type: ObjectId, ref: 'users', required: true },
     created_at: { type: Date, default: Date.now },
     updated_at: Date,
 
@@ -53,6 +57,8 @@ var CourseSchema = new mongoose.Schema({
         members: { type: Number, default: 0 },
         learners: { type: Number, default: 0 },
         time: { type: Number, default: 0 }
-    }
+    },
+    //assessment
+    assessmentDashboard: {type: ObjectId, ref: 'assessmentdashboards'}
 });
 module.exports = mongoose.model('courses', CourseSchema);
